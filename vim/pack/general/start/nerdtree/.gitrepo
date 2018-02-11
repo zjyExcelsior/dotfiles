@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/scrooloose/nerdtree
+	branch = master
+	commit = e47e588705bd7d205a3b5a60ac7090c9a2504ba2
+	parent = 0742a0a01f5a411b8e2eed2e3c432f20a5d31e88
+	method = merge
+	cmdver = 0.4.0
