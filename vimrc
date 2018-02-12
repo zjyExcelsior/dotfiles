@@ -78,6 +78,8 @@ autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 let NERDTreeShowBookmarks=1
 " map a specific key or shortcut to open NERDTree
 map <C-n> :NERDTreeToggle<CR>
+" NERDTree 中忽略 .pyc 文件
+let NERDTreeIgnore = ['\.pyc$']
 " completor
 " Python - Use jedi for completion
 let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python' 
