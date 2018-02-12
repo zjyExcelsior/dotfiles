@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/maralla/completor.vim
+	branch = master
+	commit = 43190cd7664b9ed555e57f69c2a79b34fa468e44
+	parent = 8894af3b359055df673f52e602b91c012f03dd52
+	method = merge
+	cmdver = 0.4.0
