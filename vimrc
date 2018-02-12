@@ -60,15 +60,21 @@ if has('syntax') && has('eval')
 endif
 
 " Add by jiongyao.zhu
-"背景色
+" 背景色
 set background=light
-"显示行号
+" 显示行号
 set number
 " Tab的长度
 set tabstop=4
 " 统一缩进为4
 set shiftwidth=4
 set softtabstop=4
-"Flagging Unnecessary Whitespace
+" Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" open a NERDTree automatically when vim starts up
+" autocmd vimenter * NERDTree
+" 当打开 NERDTree 窗口时，自动显示 Bookmarks
+let NERDTreeShowBookmarks=1
+" map a specific key or shortcut to open NERDTree
+map <C-n> :NERDTreeToggle<CR>
