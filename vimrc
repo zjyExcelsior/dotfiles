@@ -89,3 +89,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 " python-syntax
 let g:python_highlight_all = 1
+" CtrlP
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc  " macOS/Linux
+let g:ctrlp_max_height = 15
