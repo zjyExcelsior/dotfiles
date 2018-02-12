@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/vim-python/python-syntax.git
+	branch = master
+	commit = 58d6e019d3cdce2b1537b7a65d4dd0b62fbd9cae
+	parent = 611698952f0c57edbe01e152f5a8db5460b909ab
+	method = merge
+	cmdver = 0.4.0
