@@ -78,3 +78,10 @@ autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 let NERDTreeShowBookmarks=1
 " map a specific key or shortcut to open NERDTree
 map <C-n> :NERDTreeToggle<CR>
+" completor
+" Python - Use jedi for completion
+let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python' 
+" Use Tab to select completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
