@@ -60,6 +60,7 @@ if has('syntax') && has('eval')
 endif
 
 " Add by jiongyao.zhu
+set history=5000  " keep 5000 lines of command line history
 " 背景色
 set background=light
 " 显示行号
