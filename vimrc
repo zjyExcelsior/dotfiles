@@ -119,6 +119,26 @@ autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
+" ale
+" :ALEFix will try and fix your Python code with autopep8 and yapf.
+let g:ale_fixers = {
+\   'python': ['autopep8', 'yapf'],
+\}
+" Fix files automatically on save. This is off by default.
+let g:ale_fix_on_save = 1
+" The format for echo messages
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" Navigate between errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" Run linters only when I save files
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+
 
 " Generating Vim help files for packages
 " Put these lines at the very end of your vimrc file.
