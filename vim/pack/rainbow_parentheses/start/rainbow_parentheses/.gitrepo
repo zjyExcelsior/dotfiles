@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kien/rainbow_parentheses.vim
+	branch = master
+	commit = eb8baa5428bde10ecc1cb14eed1d6e16f5f24695
+	parent = 9d3b65fe2f98b8ad0c84bc242be87c9340ddbb1e
+	method = merge
+	cmdver = 0.4.0
