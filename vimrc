@@ -92,3 +92,8 @@ let g:python_highlight_all = 1
 " CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc  " macOS/Linux
 let g:ctrlp_max_height = 15
+" rainbow_parentheses
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
