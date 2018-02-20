@@ -120,6 +120,9 @@ autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 " ale
+let g:ale_linters = {
+\   'python': ['flake8', 'pylint'],
+\}
 " :ALEFix will try and fix your Python code with autopep8 and yapf.
 let g:ale_fixers = {
 \   'python': ['autopep8', 'yapf'],
@@ -129,7 +132,7 @@ let g:ale_fix_on_save = 1
 " The format for echo messages
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
 " Navigate between errors
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
