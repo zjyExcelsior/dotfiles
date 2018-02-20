@@ -63,6 +63,9 @@ endif
 set history=5000  " keep 5000 lines of command line history
 " 背景色
 set background=light
+" colorcolumn
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+set colorcolumn=100
 " 显示行号
 set number
 " Tab的长度
