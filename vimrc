@@ -93,6 +93,7 @@ let g:python_highlight_all = 1
 " CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc  " macOS/Linux
 let g:ctrlp_max_height = 15
+let g:ctrlp_max_files = 20000
 " rainbow_parentheses
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
