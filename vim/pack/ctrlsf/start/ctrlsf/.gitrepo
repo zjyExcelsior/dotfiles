@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:dyng/ctrlsf.vim.git
+	branch = master
+	commit = 8f8162b2298032422bab5971a600bc7c8ef6e959
+	parent = 6e0eb71ef35d9cb549e7c78b15161567af847f4a
+	method = merge
+	cmdver = 0.4.0
