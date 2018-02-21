@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/heavenshell/vim-pydocstring
+	branch = master
+	commit = 07635eee212a62889ebc3f3561fef458478ffcfd
+	parent = f3a9654cf9ce3437495c35f49aa21e14ee9cb35a
+	method = merge
+	cmdver = 0.4.0
