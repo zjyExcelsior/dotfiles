@@ -147,6 +147,19 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 " 用make来执行Python文件
 autocmd FileType python set makeprg=python\ %
+" ctrlsf
+let g:ctrlsf_ackprg = '/usr/local/bin/rg'  " 让ctrlsf使用rg做搜索
+" 一些快捷键映射
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+" CtrlSF locates project root by searching VCS root (.git, .hg, .svn, etc.)
+let g:ctrlsf_default_root = 'project'
 
 
 " Generating Vim help files for packages
