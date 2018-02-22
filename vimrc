@@ -128,11 +128,11 @@ let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
 \}
 " :ALEFix will try and fix your Python code with autopep8 and yapf.
-let g:ale_fixers = {
-\   'python': ['autopep8', 'yapf'],
-\}
+" let g:ale_fixers = {
+" \   'python': ['autopep8', 'yapf'],
+" \}
 " Fix files automatically on save. This is off by default.
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
 " The format for echo messages
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
