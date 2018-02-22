@@ -76,6 +76,10 @@ set softtabstop=4
 " Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" 用make来执行Python文件
+autocmd FileType python set makeprg=python\ %
+
+" NERDTree
 " open a NERDTree automatically when vim starts up
 " autocmd vimenter * NERDTree
 " 当打开 NERDTree 窗口时，自动显示 Bookmarks
@@ -84,6 +88,7 @@ let NERDTreeShowBookmarks=1
 map <C-n> :NERDTreeToggle<CR>
 " NERDTree 中忽略 .pyc 文件
 let NERDTreeIgnore = ['\.pyc$']
+
 " completor
 " Python - Use jedi for completion
 let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python' 
@@ -91,12 +96,15 @@ let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
 " python-syntax
 let g:python_highlight_all = 1
+
 " CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc  " macOS/Linux
 let g:ctrlp_max_height = 15
 let g:ctrlp_max_files = 20000
+
 " rainbow_parentheses
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
@@ -123,6 +131,7 @@ autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
+
 " ale
 let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
@@ -145,8 +154,7 @@ let g:ale_lint_on_text_changed = 'never'
 " You can disable this option too
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
-" 用make来执行Python文件
-autocmd FileType python set makeprg=python\ %
+
 " ctrlsf
 let g:ctrlsf_ackprg = '/usr/local/bin/rg'  " 让ctrlsf使用rg做搜索
 " 一些快捷键映射
@@ -160,6 +168,7 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " CtrlSF locates project root by searching VCS root (.git, .hg, .svn, etc.)
 let g:ctrlsf_default_root = 'project'
+
 " indentLine
 let g:indentLine_char='┆'
 let g:indentLine_color_term = 239
