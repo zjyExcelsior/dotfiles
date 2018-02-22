@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:Yggdroot/indentLine.git
+	branch = master
+	commit = 7a7e36820576a2745992927b1a6889f96967daa0
+	parent = b8ad14e17b3538e47d0c7ac29a46d482ec0f27c7
+	method = merge
+	cmdver = 0.4.0
