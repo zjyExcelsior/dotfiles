@@ -160,6 +160,12 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " CtrlSF locates project root by searching VCS root (.git, .hg, .svn, etc.)
 let g:ctrlsf_default_root = 'project'
+" indentLine
+let g:indentLine_char='┆'
+let g:indentLine_color_term = 239
+let g:indentLine_enabled = 0
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_leadingSpaceEnabled = 0
 
 
 " Generating Vim help files for packages
