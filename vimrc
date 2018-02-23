@@ -68,16 +68,20 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 set colorcolumn=100
 " 显示行号
 set number
-" Tab的长度
+" Tab的长度设置为4
+" 一个Tab键所占的列数
 set tabstop=4
-" 统一缩进为4
-set shiftwidth=4
+" 敲入Tab键时实际占有的列数
 set softtabstop=4
+" reindent 操作(<<和>>)时缩进的列数
+set shiftwidth=4
 " Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " 用make来执行Python文件
-autocmd FileType python set makeprg=python\ %
+autocmd FileType python setlocal makeprg=python\ %
+" 设置yaml缩进为2个空格
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=8	expandtab
 
 " NERDTree
 " open a NERDTree automatically when vim starts up
