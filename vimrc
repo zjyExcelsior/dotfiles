@@ -82,6 +82,13 @@ autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 autocmd FileType python setlocal makeprg=python\ %
 " 设置yaml缩进为2个空格
 autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=8	expandtab
+" undodir
+set undodir=/var/tmp/.vimundo
+" swap file directory
+set directory=/var/tmp/.vimswp//
+" backupdir
+set backupdir=/var/tmp/.vimbak
+autocmd BufWritePre * let &backupext ='@'.substitute(substitute(substitute(expand('%:p:h'), '/', '%', 'g'), '\', '%', 'g'),  ':', '', 'g').'~'
 
 " NERDTree
 " open a NERDTree automatically when vim starts up
