@@ -65,7 +65,7 @@ set history=5000  " keep 5000 lines of command line history
 set background=light
 " colorcolumn
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-set colorcolumn=100
+set colorcolumn=101
 " 显示行号
 set number
 " Tab的长度设置为4
