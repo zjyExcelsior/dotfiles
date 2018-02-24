@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:rizzatti/dash.vim.git
+	branch = develop
+	commit = 25b17d9488454a1fcdbb2cbe829a23226f95e3c2
+	parent = 5ee21ff3ed76e4ce9a0b8cc7bf44ef6f81637379
+	method = merge
+	cmdver = 0.4.0
