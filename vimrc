@@ -72,6 +72,8 @@ set shiftwidth=4
 " Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" strip all trailing whitespace in the current file
+nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
 " 用make来执行Python文件
 autocmd FileType python setlocal makeprg=python\ %
 " 设置yaml缩进为2个空格
@@ -96,7 +98,7 @@ let NERDTreeIgnore = ['\.pyc$']
 
 " completor
 " Python - Use jedi for completion
-let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python' 
+let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python'
 " Use Tab to select completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
