@@ -94,8 +94,8 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 export WORKON_HOME=$HOME/zjy_venvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
-#export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-#export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+# export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
@@ -117,8 +117,10 @@ compctl -K _pip_completion pip
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 fpath=(~/.zsh/completion $fpath)
-#rm -f ~/.zcompdump; compinit
+# rm -f ~/.zcompdump; compinit
 autoload -Uz compinit && compinit -i
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 source $HOME/git-subrepo/.rc
+# use 'chrome' to open a file
+alias chrome="open -a 'Google Chrome'"
