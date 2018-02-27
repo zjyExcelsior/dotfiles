@@ -77,7 +77,9 @@ nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
 " 用make来执行Python文件
 autocmd FileType python setlocal makeprg=python\ %
 " 设置yaml缩进为2个空格
-autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=8	expandtab
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+" 设置json缩进为2个空格
+autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " undodir
 set undodir=/var/tmp/.vimundo
 " swap file directory
