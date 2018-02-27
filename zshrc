@@ -124,3 +124,4 @@ export LANG=en_US.UTF-8
 source $HOME/git-subrepo/.rc
 # use 'chrome' to open a file
 alias chrome="open -a 'Google Chrome'"
+export GIT_EDITOR=vim
