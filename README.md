@@ -1,6 +1,6 @@
 Installation
 
-    git clone git://github.com/nelstrom/dotfiles.git
+    git clone git@github.com:zjyExcelsior/dotfiles.git
 
 Create symlinks:
 
