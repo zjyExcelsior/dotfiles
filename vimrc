@@ -185,6 +185,14 @@ let g:indentLine_enabled = 0
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_leadingSpaceEnabled = 0
 
+" vim-markdown
+let g:vim_markdown_folding_disabled = 0
+autocmd BufNewFile,BufRead *.md set nofoldenable  " 打开.md文件的时候默认不折叠
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_fenced_languages = ['python=python']
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+
 
 " Generating Vim help files for packages
 " Put these lines at the very end of your vimrc file.
