@@ -88,17 +88,23 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+export PATH="/usr/local/opt/python@2/bin:$PATH"
+
+# pyenv-virtualenv
 eval "$(pyenv init -)"
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
+# virtualenvwrapper
 export WORKON_HOME=$HOME/zjy_venvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+export VIRTUALENVWRAPPER_PYTHON=$(which python2)
 # export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 # export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 
+# pyenv-virtualenvwrapper
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
 export PATH=$PATH:/usr/local/sbin
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
