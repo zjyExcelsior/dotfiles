@@ -105,6 +105,13 @@ let g:completor_python_binary = '~/zjy_venvs/jedi_venv/bin/python'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" <C-b> Goto definitions
+" noremap <C-b> :call completor#do('definition')<CR>
+noremap <C-b> :vsplit \| call completor#do('definition')<CR>
+" <S-k> Show Documentation
+noremap <S-k> :call completor#do('doc')<CR>
+" ,s get the call signature
+noremap ,s :call completor#do('signature')<CR>
 
 " python-syntax
 let g:python_highlight_all = 1
