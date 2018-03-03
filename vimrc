@@ -75,7 +75,7 @@ autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " strip all trailing whitespace in the current file
 nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
 " make
-autocmd FileType python setlocal makeprg=python2\ %  " .py
+autocmd FileType python setlocal makeprg=python\ %  " .py
 " 设置yaml缩进为2个空格
 autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " 设置json缩进为2个空格
