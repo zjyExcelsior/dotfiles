@@ -1,0 +1,5 @@
+[style]
+blank_line_before_nested_class_or_def = true
+split_complex_comprehension = true
+split_before_named_assigns = false
+COLUMN_LIMIT = 79
