@@ -59,7 +59,7 @@ set history=5000  " keep 5000 lines of command line history
 set background=light
 " colorcolumn
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-set colorcolumn=101
+set colorcolumn=80,101
 " 显示行号
 set number
 " Tab的长度设置为4
@@ -154,7 +154,7 @@ let g:ale_linters = {
 \}
 " :ALEFix will try and fix your Python code with autopep8 and yapf.
 let g:ale_fixers = {
-\   'python': ['autopep8', 'yapf'],
+\   'python': ['yapf'],
 \}
 " Fix files automatically on save. This is off by default.
 " let g:ale_fix_on_save = 1
