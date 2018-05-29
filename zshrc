@@ -129,3 +129,13 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 source $HOME/git-subrepo/.rc
 export GIT_EDITOR=vim
+# Go 相关配置
+# GOROOT, GOPATH, GOBIN
+export GOROOT=$HOME/go/go1.8.0
+export GOPATH=$HOME/go_repos
+export GOBIN=$GOPATH/bin
+export PATH=$GOROOT/bin:$GOBIN:$PATH
+# bison
+export PATH="/usr/local/opt/bison/bin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+alias thrift0.9.3="/usr/local/opt/thrift@0.9/bin/thrift"
