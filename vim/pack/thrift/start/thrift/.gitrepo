@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:solarnz/thrift.vim.git
+	branch = master
+	commit = 7c937d2a08e1154b2586729b67f0d1c8f5940e86
+	parent = 35f9db4a1681d433c0213283f74bbd25ebeb4cf7
+	method = merge
+	cmdver = 0.4.0
