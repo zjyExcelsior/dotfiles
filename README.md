@@ -5,6 +5,9 @@ Installation
 Create required directories:
 
     mkdir -p ~/.config/yapf
+    mkdir -p /var/tmp/.vimundo
+    mkdir -p /var/tmp/.vimswp
+    mkdir -p /var/tmp/.vimbak
 
 Create symlinks:
 
