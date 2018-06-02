@@ -172,7 +172,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 
 " ctrlsf
-let g:ctrlsf_ackprg = '/usr/local/bin/rg'  " 让ctrlsf使用rg做搜索
+let g:ctrlsf_ackprg = '/usr/local/bin/rg'  " 让ctrlsf使用ripgrep(rg)做搜索
 " 一些快捷键映射
 nmap     <C-F>f <Plug>CtrlSFPrompt
 vmap     <C-F>f <Plug>CtrlSFVwordPath
