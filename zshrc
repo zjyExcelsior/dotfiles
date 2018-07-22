@@ -139,3 +139,5 @@ export PATH=$GOROOT/bin:$GOBIN:$PATH
 export PATH="/usr/local/opt/bison/bin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 alias thrift0.9.3="/usr/local/opt/thrift@0.9/bin/thrift"
+# mysql@5.7
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
