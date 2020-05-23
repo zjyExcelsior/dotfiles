@@ -1,14 +1,22 @@
 let s:py = has('python3') ? 'py3' : 'py'
 let s:pyeval = function(has('python3') ? 'py3eval' : 'pyeval')
 
+let s:slash = (exists('+shellslash') && !&shellslash) ? '\' : '/'
+let s:tempname = ''
+
 
 function! completor#utils#tempname()
-  let tmp = escape(tempname(), ' ')
+  if empty(s:tempname)
+    let s:tempname = tempname()
+    call mkdir(s:tempname)
+  endif
+
   let ext = expand('%:p:e')
-  let ext = empty(ext) ? '' : '.'.ext
-  let tmp .= ext
-  call writefile(getline(1, '$'), tmp)
-  return tmp
+  let ext_part = empty(ext) ? '' : '.'.ext
+  let fname = 'completor__temp'.ext_part
+  let path = s:tempname . s:slash . fname
+  call writefile(getline(1, '$'), path)
+  return path
 endfunction
 
 
@@ -38,7 +46,7 @@ function! completor#utils#get_completer(ft, inputted)
 endfunction
 
 
-function! completor#utils#load(ft, action, inputted)
+function! completor#utils#load(ft, action, inputted, meta)
   exe s:py 'res = completor_api.load()'
   return s:pyeval('res')
 endfunction
@@ -56,8 +64,8 @@ function! completor#utils#get_start_column()
 endfunction
 
 
-function! completor#utils#prepare_request(action)
-  exe s:py 'res = completor_api.prepare_request()'
+function! completor#utils#gen_request(action, args)
+  exe s:py 'res = completor_api.gen_request()'
   return s:pyeval('res')
 endfunction
 
@@ -68,7 +76,16 @@ function! completor#utils#is_message_end(msg)
 endfunction
 
 
-function! completor#utils#retrigger()
-  exe s:py 'res = completor_api.fallback_to_common()'
-  call completor#action#do('complete', s:pyeval('res'))
+function! completor#utils#reset()
+  exe s:py 'completor_api.reset()'
+endfunction
+
+
+function! completor#utils#on_stream(name, action, msg)
+  exe s:py 'completor_api.on_stream()'
+endfunction
+
+
+function! completor#utils#on_exit()
+  exe s:py 'completor_api.on_exit()'
 endfunction

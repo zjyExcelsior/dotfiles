@@ -4,9 +4,9 @@
 ; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
 ;
 [subrepo]
-	remote = https://github.com/maralla/completor.vim
+	remote = https://github.com/maralla/completor.vim.git
 	branch = master
-	commit = 43190cd7664b9ed555e57f69c2a79b34fa468e44
-	parent = 8894af3b359055df673f52e602b91c012f03dd52
+	commit = 2cb69a41b291fd9e8cda3fa9914200b370a816e7
+	parent = 724b7fe0cf1626b3eec600cfa1f259d241b740fd
 	method = merge
 	cmdver = 0.4.0

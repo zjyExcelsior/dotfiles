@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from completor import Completor, get_encoding
+from completor import Completor, get_encoding, vim
 from completor.compat import to_unicode, to_bytes
 
-import vim
 import re
 import logging
 
@@ -64,7 +63,12 @@ class Omni(Completor):
             logger.info('start: %s,%s', start, codepoint)
             if start < 0 or start != codepoint:
                 return []
-            return omnifunc(0, to_bytes(base, get_encoding())[codepoint:])
+            res = omnifunc(0, to_bytes(base, get_encoding())[codepoint:])
+            for i, e in enumerate(res):
+                if not isinstance(e, dict):
+                    res[i] = {'word': e}
+                res[i]['offset'] = codepoint
+            return res
         except (vim.error, ValueError, KeyboardInterrupt):
             return []
         finally:
