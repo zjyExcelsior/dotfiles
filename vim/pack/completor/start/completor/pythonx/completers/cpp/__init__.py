@@ -3,11 +3,11 @@
 import re
 import os
 import logging
-import vim
 import functools
-from completor import Completor
+from completor import Completor, vim
 from completor.compat import to_bytes
 
+path = os.path.dirname(__file__)
 
 word_patten = re.compile('\w+$')
 trigger = re.compile('(\.|->|#|::)\s*(\w*)$')
@@ -16,6 +16,15 @@ ast_pat = re.compile(
     b'.*?'
     b'<(.*?):(\d+):(\d+), (?:col|line):\d+(?::\d+)?>'
     b' (line|col):(\d+)(?::(\d+))? (.*)')
+
+
+VIM_FILES = ['placeholder.vim']
+
+
+def _inject_vim_files():
+    for f in VIM_FILES:
+        filename = os.path.join(path, f)
+        vim.command('source {}'.format(filename))
 
 
 def _utf8(b):
@@ -30,7 +39,20 @@ def sanitize(menu):
     menu = menu.replace(b'[#', b'').replace(b'#]', b' ')
     # argument
     menu = menu.replace(b'<#', b'').replace(b'#>', b'')
+    # optional
+    menu = menu.replace(b'{#', b'').replace(b'#}', b'')
     return menu
+
+
+def strip_optional(menu):
+    return re.sub(b'{#.*#}|\[#.*#\]', b'', menu)
+
+
+def get_word(text):
+    parts = re.split(b'[ (\[{<]', text, 1)
+    if not parts:
+        return text
+    return parts[0]
 
 
 def get_token_path(line, column, word):
@@ -105,6 +127,13 @@ class Clang(Completor):
     filetype = 'cpp'
 
     args_file = ['.clang_complete', '.clang']
+
+    def __init__(self, *args, **kwargs):
+        Completor.__init__(self, *args, **kwargs)
+        _inject_vim_files()
+        self.disable_placeholders = self.get_option(
+            'clang_disable_placeholders'
+        ) or 1
 
     def _gen_args(self):
         binary = self.get_option('clang_binary') or 'clang'
@@ -188,29 +217,31 @@ class Clang(Completor):
 
         res = []
         for item in items:
+            logger.info(item)
             if not item.startswith(b'COMPLETION:'):
                 continue
 
             parts = [e.strip() for e in item.split(b':')]
-            if len(parts) < 2 or not parts[1].startswith(prefix):
+            if len(parts) < 2:
                 continue
 
-            data = {'word': parts[1], 'dup': 1, 'menu': ''}
-            if len(parts) > 2:
-                if parts[1] == b'Pattern':
-                    subparts = parts[2].split(b' ', 1)
-                    data['word'] = subparts[0]
-                    if len(subparts) > 1:
-                        data['menu'] = subparts[1]
-                else:
-                    data['menu'] = b':'.join(parts[2:])
+            data = {'word': parts[1], 'dup': 1, 'menu': b''}
+            if parts[1] == b'Pattern':
+                data['word'] = get_word(parts[2])
+                data['menu'] = parts[2]
+            else:
+                data['menu'] = b':'.join(parts[2:])
             func_sig = sanitize(data['menu'])
+            data['abbr'] = data['word']
+            if self.disable_placeholders != 1 and data['menu']:
+                data['word'] = strip_optional(data['menu'])
             data['menu'] = func_sig
 
             # Show function signature in the preview window
-            data['info'] = func_sig
+            # data['info'] = func_sig
 
-            res.append(data)
+            if data['word'].startswith(prefix):
+                res.append(data)
         return res
 
     def on_definition(self, items):

@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import vim
 try:
     from pipes import quote
 except ImportError:
     from shlex import quote
 
-from completor import Completor, get_encoding
+from completor import Completor, get_encoding, vim
 from completor.compat import to_bytes
 
 ACTION_MAP = {
@@ -20,7 +19,18 @@ class Racer(Completor):
     filetype = 'rust'
     trigger = r'(?:\w{2,}\w*|\.\w*|::\w*)$'
 
+    def _format(self):
+        rustfmt = self.get_option('rust_rustfmt_binary') or 'rustfmt'
+        return [rustfmt, self.filename]
+
     def get_cmd_info(self, action):
+        if action == b'format':
+            return vim.Dictionary(
+                cmd=self._format(),
+                is_daemon=False,
+                ftype=self.filetype,
+                is_sync=False
+            )
         binary = self.get_option('racer_binary') or 'racer'
         return vim.Dictionary(
             cmd=[binary, 'daemon'],

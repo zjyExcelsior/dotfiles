@@ -3,12 +3,15 @@
 import collections
 import itertools
 import re
-import vim
+import logging
 
-from completor import Completor
+from completor import Completor, vim, LIMIT
 from completor.compat import to_unicode
 
-from .utils import test_subseq, LIMIT
+from .utils import test_subseq
+
+logger = logging.getLogger('completor')
+word = re.compile(r'[^\W\d]\w*$', re.U)
 
 
 def getftime(nr):
@@ -30,7 +33,7 @@ def get_encoding(nr):
 
 
 class TokenStore(object):
-    pat = re.compile(r'[^\W\d]{3,}\w*', re.U)
+    pat = re.compile(r'[^\W\d]{3}\w{0,45}', re.U)
 
     def __init__(self):
         self.cache = {}
@@ -86,16 +89,24 @@ class Buffer(Completor):
     sync = True
 
     def parse(self, base):
-        token_store.parse_buffers(base)
+        match = word.search(base)
+        if not match:
+            return []
+        identifier = match.group()
+        if len(identifier) < self.get_option('min_chars'):
+            return []
+        token_store.parse_buffers(identifier)
 
         res = set()
-        for token, factor in token_store.search(base):
-            if token == base:
+        for token, factor in token_store.search(identifier):
+            if token == identifier:
                 continue
             res.add((token, factor))
             if len(res) >= LIMIT:
                 break
 
+        offset = len(base) - len(identifier)
         res = list(res)
         res.sort(key=lambda x: (x[1], x[0]))
-        return [{'word': token, 'menu': '[ID]'} for token, _ in res]
+        return [{'word': token, 'menu': '[ID]', 'offset': offset}
+                for token, _ in res]

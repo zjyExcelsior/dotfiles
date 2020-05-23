@@ -1,81 +1,55 @@
 let s:daemon = {'msgs': [], 'requested': v:false, 't': 0}
 
 
-function! s:vim_daemon_handler(msg)
-  call add(s:daemon.msgs, a:msg)
-  if completor#utils#is_message_end(a:msg)
-    let s:daemon.requested = v:false
-    call completor#action#callback(s:daemon.msgs)
-  endif
+function! s:vim_daemon_handler(name, msg)
+  call completor#action#stream(a:name, a:msg)
 endfunction
 
 
-let s:nvim_last_msg = ''
-function! s:nvim_read(data)
-  let data = a:data
-
-  if !empty(s:nvim_last_msg) && !empty(data)
-    let s:nvim_last_msg .= data[0]
-    let data = data[1:]
-    if !empty(data)
-      call add(s:daemon.msgs, s:nvim_last_msg)
-      let s:nvim_last_msg = ''
-    endif
-  endif
-
-  if !empty(data)
-    let s:nvim_last_msg = data[-1]
-    call extend(s:daemon.msgs, data[0:-2])
-  endif
+function! s:nvim_daemon_handler(name, job_id, data, event)
+  call completor#action#stream(a:name, join(a:data, "\n"))
 endfunction
 
 
-function! s:nvim_daemon_handler(job_id, data, event)
-  if a:event ==# 'exit'
-    return
-  endif
-
-  call s:nvim_read(a:data)
-
-  if empty(s:nvim_last_msg) && !empty(s:daemon.msgs)
-    if completor#utils#is_message_end(s:daemon.msgs[-1])
-      let s:daemon.requested = v:false
-      call completor#action#callback(s:daemon.msgs)
-    endif
-  endif
+function! s:on_exit(name, job_id, status)
+  call completor#popup#safe_hide()
+  call completor#utils#on_exit()
 endfunction
 
 
 if has('nvim')
   " neovim
-  function! s:job_start_daemon(cmd)
-    return jobstart(a:cmd, {
-          \   'on_stdout': function('s:nvim_daemon_handler'),
-          \   'on_stderr': function('s:nvim_daemon_handler'),
-          \   'on_exit': function('s:nvim_daemon_handler'),
-          \ })
+  function! s:job_start_daemon(name, cmd, options)
+    let conf = {
+          \   'on_stdout': {id,data,ev -> s:nvim_daemon_handler(a:name, id, data, ev)},
+          \ }
+    call extend(conf, a:options)
+    return jobstart(a:cmd, conf)
   endfunction
 
   function! s:daemon.write(data)
     let s:nvim_last_msg = ''
     try
-      call jobsend(self.job, a:data."\n")
+      call jobsend(self.job, a:data)
     catch /E900/
     endtry
   endfunction
 else
   " vim8
-  function! s:job_start_daemon(cmd)
-    return job_start(a:cmd, {
-          \   'out_cb': {c,m->s:vim_daemon_handler(m)},
-          \   'err_io': 'out',
-          \   'mode': 'nl'
-          \ })
+  function! s:job_start_daemon(name, cmd, options)
+    let conf = {
+          \   'out_cb': {c,m -> s:vim_daemon_handler(a:name, m)},
+          \   'exit_cb': {i,s -> s:on_exit(a:name, i, s)},
+          \   'err_io': 'null',
+          \   'mode': 'raw',
+          \ }
+    call extend(conf, a:options)
+    return job_start(a:cmd, conf)
   endfunction
 
   function! s:daemon.write(data)
     try
-      call ch_sendraw(job_getchannel(self.job), a:data."\n")
+      call ch_sendraw(job_getchannel(self.job), a:data)
     catch /E631/
       call self.kill()
     endtry
@@ -83,11 +57,12 @@ else
 endif
 
 
-function! s:daemon.respawn(cmd, name)
-  if self.status(a:name) == 'run'
+function! s:daemon.respawn(cmd, name, options)
+  if self.status(a:name) ==# 'run'
     call completor#compat#job_stop(self.job)
   endif
-  let self.job = s:job_start_daemon(a:cmd)
+  let self.job = s:job_start_daemon(a:name, a:cmd, a:options)
+  call completor#utils#reset()
   let self.type = a:name
   let self.cmd = a:cmd
   let self.requested = v:false
@@ -119,40 +94,39 @@ function s:daemon.kill()
 endfunction
 
 
-function! completor#daemon#process(action, cmd, name)
+function! completor#daemon#process(action, cmd, name, options, args)
   let s:daemon.msgs = []
 
   " Daemon not running
-  if s:daemon.status(a:name) != 'run'
-    call s:daemon.respawn(a:cmd, a:name)
+  if s:daemon.status(a:name) !=# 'run'
+    call s:daemon.respawn(a:cmd, a:name, a:options)
   endif
 
-  if s:daemon.status(a:name) != 'run'
-    return
+  if s:daemon.status(a:name) !=# 'run'
+    return v:false
   endif
 
-  " Already requested
-  if s:daemon.requested
-    if localtime() - s:daemon.t > 5
-      call s:daemon.kill()
-    endif
-    return
-  endif
-
-  let req = completor#utils#prepare_request(a:action)
+  let req = completor#utils#gen_request(a:action, a:args)
   if empty(req)
-    return
+    return v:false
   endif
 
-  call s:daemon.write(req)
+  if type(req) == v:t_list
+    for d in req
+      call s:daemon.write(d)
+    endfor
+  else
+    call s:daemon.write(req)
+  endif
 
   let s:daemon.requested = v:true
   let s:daemon.t = localtime()
+  return v:true
 endfunction
 
 
 function! s:check_status()
-  if s:daemon.status(s:daemon.type) != 'run'
+  if s:daemon.status(s:daemon.type) !=# 'run'
     echo 'Daemon killed'
   endif
 endfunction
