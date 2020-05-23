@@ -81,11 +81,11 @@ autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " 设置json缩进为2个空格
 autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " undodir
-set undodir=/var/tmp/.vimundo
+set undodir=/var/tmp/
 " swap file directory
-set directory=/var/tmp/.vimswp//
+set directory=/var/tmp//
 " backupdir
-set backupdir=/var/tmp/.vimbak
+set backupdir=/var/tmp/
 autocmd BufWritePre * let &backupext ='@'.substitute(substitute(substitute(expand('%:p:h'), '/', '%', 'g'), '\', '%', 'g'),  ':', '', 'g').'~'
 
 " NERDTree
